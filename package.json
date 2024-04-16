@@ -1,14 +1,12 @@
 {
   "name": "eas-update-tool",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "eas-update-tool": "bin/index.js"
-  },
+  "bin": "bin/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
