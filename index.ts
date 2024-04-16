@@ -1,9 +1,8 @@
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 
 import * as p from '@clack/prompts'
 
-const fsp = fs.promises;
 
 interface EnvFields {
   EXPO_PUBLIC_ENVIRONMENT: string;
@@ -88,12 +87,12 @@ async function main() {
 
 async function updateProjectVersion(args: FormattedArguments) {
   try {
-    const easFile = await fsp.readFile('./eas.json', 'utf8',)
+    const easFile = await fs.readFile('./eas.json', 'utf8',)
     const easObject: EasProperties = JSON.parse(easFile)
 
     changeVersion(easObject, args)
 
-    await fsp.writeFile('./eas.json', JSON.stringify(easObject, null, 2), 'utf8')
+    await fs.writeFile('./eas.json', JSON.stringify(easObject, null, 2), 'utf8')
 
     //console.log('eas.json atualizado com sucesso!')
   } catch (err) {

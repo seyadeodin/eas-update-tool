@@ -36,10 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var node_fs_1 = require("node:fs");
-var promises_1 = require("node:timers/promises");
+var promises_1 = require("node:fs/promises");
+var promises_2 = require("node:timers/promises");
 var p = require("@clack/prompts");
-var fsp = node_fs_1.default.promises;
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var project;
@@ -47,7 +46,7 @@ function main() {
             switch (_a.label) {
                 case 0:
                     console.clear();
-                    return [4 /*yield*/, (0, promises_1.setTimeout)(1000)];
+                    return [4 /*yield*/, (0, promises_2.setTimeout)(1000)];
                 case 1:
                     _a.sent();
                     p.intro("eas-update-app-util");
@@ -115,12 +114,12 @@ function updateProjectVersion(args) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fsp.readFile('./eas.json', 'utf8')];
+                    return [4 /*yield*/, promises_1.default.readFile('./eas.json', 'utf8')];
                 case 1:
                     easFile = _a.sent();
                     easObject = JSON.parse(easFile);
                     changeVersion(easObject, args);
-                    return [4 /*yield*/, fsp.writeFile('./eas.json', JSON.stringify(easObject, null, 2), 'utf8')
+                    return [4 /*yield*/, promises_1.default.writeFile('./eas.json', JSON.stringify(easObject, null, 2), 'utf8')
                         //console.log('eas.json atualizado com sucesso!')
                     ];
                 case 2:
