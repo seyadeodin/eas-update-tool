@@ -20,7 +20,7 @@ jobs:
         run: npm i pnpm -g
 
       - name: Install dependencies
-        run: ppm ci
+        run: pnpm ci
 
       - name: Build Typescript to Javsacript and add env node line
         run: pnpm build
