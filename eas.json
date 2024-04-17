@@ -1,0 +1,65 @@
+{
+  "cli": {
+    "version": ">= 2.6.0",
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "resourceClass": "m-medium"
+      },
+      "env": {
+        "EXPO_PUBLIC_ENVIRONMENT": "preview",
+        "NAME": "Fair - Homologação",
+        "BUNDLE_IDENTIFIER": "com.homologacao.fair",
+        "EXPO_PUBLIC_VERSION": "1.0.0",
+        "BUILD_NUMBER": "1",
+        "VERSION_CODE": "15"
+      },
+      "channel": "preview"
+    },
+    "production": {
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "resourceClass": "m-medium"
+      },
+      "channel": "production",
+      "env": {
+        "EXPO_PUBLIC_VERSION": "2.2.6",
+        "EXPO_PUBLIC_ENVIRONMENT": "preview",
+        "NAME": "Fair - e-Gestão",
+        "BUNDLE_IDENTIFIER": "com.homologacao.fair",
+        "VERSION": "2.2.6",
+        "BUILD_NUMBER": "1",
+        "VERSION_CODE": "6"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "track": "production"
+      },
+      "ios": {
+        "appleId": "lucas.andrade@e-gestao.com.br",
+        "ascAppId": "6454151017",
+        "appleTeamId": "4N33TWWTD9"
+      }
+    },
+    "preview": {
+      "ios": {
+        "appleId": "lucas.andrade@e-gestao.com.br",
+        "ascAppId": "6464329626",
+        "appleTeamId": "4N33TWWTD9"
+      },
+      "android": {
+        "track": "internal"
+      }
+    }
+  }
+}

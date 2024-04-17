@@ -34,7 +34,10 @@ jobs:
       - name: Increase version number
         run: pnpm version patch
 
-      - name: Publish to npm
+      - name: Set publishing config
+        run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run:  pnpm publish --no-git-checks
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Publish to npm
+        run:  pnpm publish --no-git-checks --tag latest --access=public
