@@ -2,11 +2,11 @@
   "name": "eas-update-tool",
   "version": "0.5.5",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx tsc; sed -i '1s|^|\\#!/usr/bin/env node\\n|' build/index.js"
   },
-  "bin": "index.js",
+  "bin": "build/index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
