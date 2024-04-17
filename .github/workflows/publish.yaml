@@ -25,6 +25,11 @@ jobs:
       - name: Build Typescript to Javsacript and add env node line
         run: pnpm build
 
+      - name: Set Git user information
+        run: |
+          git config user.email "seyadeodin@gmail.com"
+          git config user.name "Lucas"
+
       - name: Increase version number
         run: pnpm version patch
 
