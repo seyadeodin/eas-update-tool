@@ -1,8 +1,11 @@
 import fs from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
+import { promisify } from 'node:util'
+import { exec as execSync } from 'node:child_process';
 
 import * as p from '@clack/prompts'
 
+const exec = promisify(execSync)
 
 interface EnvFields {
   EXPO_PUBLIC_ENVIRONMENT: string;
@@ -32,7 +35,6 @@ interface FormattedArguments {
 }
 
 async function main() {
-
   console.clear();
 
   await setTimeout(1000);
@@ -83,6 +85,31 @@ async function main() {
     environment: project.environment as Environment,
     version: project.customVersion as Version || project.version,
   })
+
+  const deploy = await p.group({
+
+    deploy: () =>
+      p.multiselect({
+        required: false,
+        message: 'Where do you want to deploy your app',
+        options: [
+          { value: 'ios', label: 'iOS' },
+          { value: 'android', label: 'Android' }
+        ]
+      }),
+  })
+
+  if (deploy.deploy.some(item => !!item)) {
+    const platforms = deploy.deploy.reduce((acc, curr) => {
+      return acc ? 'all' : curr
+    }, '')
+
+    const { stderr, stdout } = await exec(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
+    console.log(stdout);
+    console.log(stderr);
+  }
+
+  p.outro(`Deploy finished`)
 }
 
 async function updateProjectVersion(args: FormattedArguments) {
@@ -93,8 +120,6 @@ async function updateProjectVersion(args: FormattedArguments) {
     changeVersion(easObject, args)
 
     await fs.writeFile('./eas.json', JSON.stringify(easObject, null, 2), 'utf8')
-
-    //console.log('eas.json atualizado com sucesso!')
   } catch (err) {
     console.error('Um erro ocorreu', err)
   }
