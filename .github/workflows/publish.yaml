@@ -1,18 +1,34 @@
 name: Publish package to npmjs
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install node
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm publish
+
+      - name: Install PNPM
+        run: npm i pnpm -g
+
+      - name: Install dependencies
+        run: ppm ci
+
+      - name: Build Typescript to Javsacript and add env node line
+        run: pnpm build
+
+      - name: Increase version number
+        run: pnpm version patch
+
+      - name: Publish to npm
+        run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
