@@ -54,4 +54,6 @@ jobs:
         run:  pnpm publish --no-git-checks --tag latest --access=public
 
       - name: Push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
