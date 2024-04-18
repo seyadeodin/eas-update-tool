@@ -32,7 +32,7 @@ jobs:
           git config user.name "Lucas"
 
       - name: Increase version number
-        run: pnpm version patch
+        run: pnpm version patch --force
 
       - name: Set publishing config
         run: pnpm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}"
