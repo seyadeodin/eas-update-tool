@@ -39,11 +39,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-      - name: Add changes
-        run: git add .
-
-      - name: Commit changes
-        run: git commit -m '":"wrench":" chore":" Update package.json'
+      # -- pnpm version patch --force already add and ccmmit changes -- #
+      # - name: Add changes
+      #   run: git add .
+      #
+      # - name: Commit changes
+      #   run: git commit -m '":"wrench":" chore":" Update package.json'
 
       - name: Publish to npm
         run:  pnpm publish --no-git-checks --tag latest --access=public
