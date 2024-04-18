@@ -1,7 +1,7 @@
 {
   "name": "eas-update-tool",
   "version": "0.5.9",
-  "description": "",
+  "description": "Eas Tool",
   "main": "build/index.js",
   "scripts": {
     "build": "npx tsc; sed -i '1s|^|\\#!/usr/bin/env node\\n|' build/index.js"
