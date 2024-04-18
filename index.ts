@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { setTimeout } from 'node:timers/promises';
 import { promisify } from 'node:util'
-import { exec as execSync } from 'node:child_process';
+import { exec as execSync, spawn } from 'node:child_process';
 
 import * as p from '@clack/prompts'
 
@@ -104,7 +104,7 @@ async function main() {
       return acc ? 'all' : curr
     }, '')
 
-    const { stderr, stdout } = await exec(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
+    const { stderr, stdout } = exec(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
     console.log(stdout);
     console.log(stderr);
   }
