@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -51,5 +55,3 @@ jobs:
 
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
