@@ -28,8 +28,8 @@ jobs:
 
       - name: Set Git user information
         run: |
-          git config user.email "seyadeodin@gmail.com"
-          git config user.name "Lucas"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
 
       - name: Increase version number
         run: pnpm version patch --force
@@ -41,8 +41,6 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
           git add package.json
           git commit -m ":wrench: chore: Update package.json"
 
