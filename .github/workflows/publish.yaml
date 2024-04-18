@@ -40,7 +40,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - name: Add changes
-        run: git add package.json
+        run: git add .
 
       - name: Commit changes
         run: git commit -m '":"wrench":" chore":" Update package.json'
