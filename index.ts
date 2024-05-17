@@ -104,12 +104,36 @@ async function main() {
       return acc ? 'all' : curr
     }, '')
 
-    const { stderr, stdout } = exec(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
-    console.log(stdout);
-    console.log(stderr);
+    //const { stderr, stdout } = exec(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
+    // console.log(stdout);
+    // console.log(stderr);
+    // console.log('npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}')
+
+    const easBuild = spawn(`eas`, ["build", `--profile=${project.environment}`, "--auto-submit", "--non-interactive", `--platform=${platforms}`], { shell: true })
+
+    easBuild.stdout.on('data', (data) => {
+      console.log(data.toString());
+    });
+
+    easBuild.stderr.on('data', (data) => {
+      console.error(data.toString())
+    })
+
+    easBuild.stderr.on('close', (code) => {
+      console.log("🚀 ~ easBuild.stderr.on ~ code:", code)
+      console.log(!code ? `Deploy failed\n
+If the error was at the build stage you can run it manually  with:\n
+npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}\n
+or\n
+npx eas build --profile=${project.environment} --auto-submit --platform=${platforms}\n\n
+If error ocurred on submit you may have to check your metadata and rebuild, or run the command:\n
+npx eas submit --profile=${project.environment} --platform=${platforms}` : 'Deploy feito com sucesso')
+
+      p.outro(`Deploy finished`)
+    })
+    // console.log(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
   }
 
-  p.outro(`Deploy finished`)
 }
 
 async function updateProjectVersion(args: FormattedArguments) {

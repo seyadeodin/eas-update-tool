@@ -27,7 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     buildNumber: process.env.BUILD_NUMBER,
   },
   android: {
-    versionCode: Number(process.env.VERSION_CODE),
+    versionCode: Number(process.env.VERSION_CODE) || 0,
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
       backgroundColor: "#1a4f96",
