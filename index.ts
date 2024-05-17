@@ -26,7 +26,7 @@ interface EasProperties {
   }
 }
 
-type Version = 'buildNumber' | 'bugfix' | 'minor' | 'major';
+type Version = 'buildNumber/versionCode' | 'bugfix' | 'minor' | 'major';
 type Environment = 'production' | 'preview';
 
 interface FormattedArguments {
@@ -61,7 +61,7 @@ async function main() {
           { value: 'minor', label: 'Minor (X.+1.0)' },
           { value: 'major', label: 'Major (+1.0.0)' },
           { value: 'buildNumber', label: 'BuildNumber(iOS)' },
-          { value: 'manual', label: 'Insirt manually' }
+          { value: 'manual', label: 'Insert manually' }
         ]
       }),
     customVersion: ({ results }) => {
@@ -98,17 +98,12 @@ async function main() {
         ]
       }),
   })
+  p.outro(`Version increased successfuly! ${deploy.deploy.length > 0 ? 'Starting deploy...' : ''}`)
 
   if (deploy.deploy.some(item => !!item)) {
     const platforms = deploy.deploy.reduce((acc, curr) => {
       return acc ? 'all' : curr
     }, '')
-
-    //const { stderr, stdout } = exec(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
-    // console.log(stdout);
-    // console.log(stderr);
-    // console.log('npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}')
-
     const easBuild = spawn(`eas`, ["build", `--profile=${project.environment}`, "--auto-submit", "--non-interactive", `--platform=${platforms}`], { shell: true })
 
     easBuild.stdout.on('data', (data) => {
@@ -129,9 +124,8 @@ npx eas build --profile=${project.environment} --auto-submit --platform=${platfo
 If error ocurred on submit you may have to check your metadata and rebuild, or run the command:\n
 npx eas submit --profile=${project.environment} --platform=${platforms}` : 'Deploy feito com sucesso')
 
-      p.outro(`Deploy finished`)
+      return;
     })
-    // console.log(`npx eas build --profile=${project.environment} --auto-submit --non-interactive --platform=${platforms}`)
   }
 
 }
@@ -185,7 +179,8 @@ function changeVersion(easObject: EasProperties, args: FormattedArguments) {
       env.BUILD_NUMBER = "1"
       env.VERSION_CODE = String(Number(env.VERSION_CODE) + 1)
       break
-    case 'buildNumber':
+    case 'buildNumber/versionCode':
+      env.VERSION_CODE = String(Number(env.VERSION_CODE) + 1)
       env.BUILD_NUMBER = String(Number(env.BUILD_NUMBER) + 1)
       break
     default:

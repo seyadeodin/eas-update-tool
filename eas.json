@@ -15,9 +15,9 @@
         "EXPO_PUBLIC_ENVIRONMENT": "preview",
         "NAME": "Fair - Homologação",
         "BUNDLE_IDENTIFIER": "com.homologacao.fair",
-        "EXPO_PUBLIC_VERSION": "1.11.0",
+        "EXPO_PUBLIC_VERSION": "buildNumber",
         "BUILD_NUMBER": "1",
-        "VERSION_CODE": "35"
+        "VERSION_CODE": "37"
       },
       "channel": "preview"
     },
