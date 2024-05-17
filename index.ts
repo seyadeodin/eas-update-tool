@@ -26,7 +26,7 @@ interface EasProperties {
   }
 }
 
-type Version = 'buildNumber/versionCode' | 'bugfix' | 'minor' | 'major';
+type Version = 'buildNumber' | 'bugfix' | 'minor' | 'major';
 type Environment = 'production' | 'preview';
 
 interface FormattedArguments {
@@ -60,7 +60,7 @@ async function main() {
           { value: 'bugfix', label: 'Bugfix (X.X.+1)' },
           { value: 'minor', label: 'Minor (X.+1.0)' },
           { value: 'major', label: 'Major (+1.0.0)' },
-          { value: 'buildNumber', label: 'BuildNumber(iOS)' },
+          { value: 'buildNumber', label: 'BuildNumber/VersionCode' },
           { value: 'manual', label: 'Insert manually' }
         ]
       }),
@@ -179,7 +179,7 @@ function changeVersion(easObject: EasProperties, args: FormattedArguments) {
       env.BUILD_NUMBER = "1"
       env.VERSION_CODE = String(Number(env.VERSION_CODE) + 1)
       break
-    case 'buildNumber/versionCode':
+    case 'buildNumber':
       env.VERSION_CODE = String(Number(env.VERSION_CODE) + 1)
       env.BUILD_NUMBER = String(Number(env.BUILD_NUMBER) + 1)
       break
