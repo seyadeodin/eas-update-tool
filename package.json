@@ -1,6 +1,6 @@
 {
   "name": "eas-update-tool",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "description": "Eas Tool",
   "main": "build/index.js",
   "scripts": {
